@@ -46,7 +46,6 @@ class ImageGallery extends Component {
           const images = hits.map(({ id, webformatURL, largeImageURL, tags }) => {
             return { id, webformatURL, largeImageURL, tags };
           });
-          // console.log(images);
           if (images.length > 0) {
             this.setState(prevState => {
               return {
