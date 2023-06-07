@@ -14,6 +14,13 @@ export const ImageGallery = ({imagesList,showModal}) => {
 }
 
 ImageGallery.propTypes = {
-    imagesList: PropTypes.arrayOf(PropTypes.object).isRequired,
-    showModal: PropTypes.func.isRequired,
+  imagesList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  showModal: PropTypes.func.isRequired,
 };
