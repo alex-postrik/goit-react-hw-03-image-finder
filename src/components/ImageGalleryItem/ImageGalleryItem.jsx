@@ -1,18 +1,15 @@
+import css from './ImageGalleryItem.module.css'
 import PropTypes from 'prop-types';
 
-import s from 'components/Styles.module.css';
-
-export default function ImageGalleryItem({ src, tags, dataSrc, onClick }) {
-  return (
-    <li className={s.ImageGalleryItem} onClick={onClick}>
-      <img src={src} alt={tags} data-src={dataSrc} className={s.ImageGalleryItemImage} />
-    </li>
-  );
+export const ImageGalleryItem = ({ altImg, srcImg='https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg' ,largeImageURL,onClick}) => {
+   return <li onClick={() => onClick(largeImageURL)} className={css.ImageGalleryItem}>
+            <img className={css.ImageGalleryItem_image} src={srcImg} alt={altImg} />
+          </li>
 }
 
 ImageGalleryItem.propTypes = {
-  src: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  dataSrc: PropTypes.string.isRequired,
-  // onClick: PropTypes.func.isRequired,
+    altImg: PropTypes.string.isRequired,
+    srcImg: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
 };

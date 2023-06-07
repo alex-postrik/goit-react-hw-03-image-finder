@@ -1,30 +1,19 @@
+import {ImageGalleryItem} from '../ImageGalleryItem/ImageGalleryItem'
+import css from './ImageGallery.module.css'
 import PropTypes from 'prop-types';
 
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-import s from 'components/Styles.module.css';
+export const ImageGallery = ({imagesList,showModal}) => {
 
-function ImageGallery({ query, onClickImg }) {
-  return (
-    <ul className={s.ImageGallery}>
-      {query.map(({ id, webformatURL, largeImageURL, tags }) => {
-        return (
-          <ImageGalleryItem key={id} src={webformatURL} tags={tags} dataSrc={largeImageURL} onClick={onClickImg} />
-        );
-      })}
-    </ul>
-  );
+        return imagesList.length > 0 && <ul className={css.ImageGallery}>
+                {imagesList.map(el => {
+                    return <ImageGalleryItem key={el.id} altImg={el.tags} srcImg={el.webformatURL} onClick={showModal} largeImageURL={el.largeImageURL} />
+                })}
+            </ul>
+
+
 }
 
 ImageGallery.propTypes = {
-  gallery: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      webformatURL: PropTypes.string.isRequired,
-      largeImageURL: PropTypes.string.isRequired,
-      tags: PropTypes.string.isRequired,
-    })
-  ),
-  onClickImg: PropTypes.func,
+    imagesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    showModal: PropTypes.func.isRequired,
 };
-
-export default ImageGallery;

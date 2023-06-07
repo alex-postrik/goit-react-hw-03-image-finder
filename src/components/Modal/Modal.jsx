@@ -1,40 +1,44 @@
-import React, { Component } from 'react';
+import css from './Modal.module.css'
 import { createPortal } from 'react-dom';
+import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import s from 'components/Styles.module.css';
 
-const modalRoot = document.querySelector('#modal-root');
+const modalRoor = document.querySelector('#modal-root')
 
-export default class Modal extends Component {
-  static propTypes = {
-    onClose: PropTypes.func.isRequired,
-  };
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
+export class Modal extends Component {
 
-  handleKeyDown = event => {
-    if (event.code === 'Escape') {
-      this.props.onClose();
+    componentDidMount() {
+
+        window.addEventListener('keydown', this.closeOnESC)
     }
-  };
 
-  handleBackdropClick = event => {
-    if (event.target === event.currentTarget) {
-      this.props.onClose();
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.closeOnESC)
     }
-  };
 
-  render() {
-    return createPortal(
-      <div className={s.Overlay} onClick={this.handleBackdropClick}>
-        <div className={s.Modal}>{this.props.children}</div>
-      </div>,
-      modalRoot
-    );
-  }
+    closeOnESC = (e)  => {
+            if (e.code === 'Escape') {
+                this.props.onClose()
+            }
+        }
+
+    handleClicBacldrop = e => {
+        if (e.currentTarget === e.target) {
+            this.props.onClose()
+        }
+    }
+
+    render() {
+        return createPortal(<div onClick={this.handleClicBacldrop} className={css.Overlay}>
+                    <div className={css.Modal}>
+                        <img  className={css.imgModal} src={this.props.largeImage} alt="" />
+                    </div>
+                </div>, modalRoor)
+    }
 }
+
+Modal.propTypes = {
+    onClick: PropTypes.func,
+    largeImage: PropTypes.string.isRequired,
+};
